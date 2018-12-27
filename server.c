@@ -23,5 +23,20 @@ int main(void)
 	}
 	/*AF_INET - IPv4 protocol
 	 * SOCK_STREAM - TCP socket*/
+
+	/*Fill sockaddr_in struct*/
+	const uint16_t port = 50000;
+	serverAddres.sin_addr.s_addr = INADDR_ANY;
+	serverAddres.sin_port = htons(port);
+	serverAddres.sin_family = AF_INET;
+	socklen_t serverAddresLength = sizeof(serverAddres);
+
+	/*Bind socket to local address*/
+	serverBind = bind(serverSocket, (struct sockaddr *)&serverAddres, serverAddresLength);
+	if(serverBind == -1)
+	{
+		fprintf(stderr, "Socket did not bind...\n");
+		exit(1);
+	}
 	return 0;
 }
