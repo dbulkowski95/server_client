@@ -38,5 +38,14 @@ int main(void)
 		fprintf(stderr, "Socket did not bind...\n");
 		exit(1);
 	}
+	/*Socket listen for server to 128*/
+	serverListen = listen(serverSocket, SOMAXCONN);
+	if(serverListen == -1)
+	{
+		fprintf(stderr, "Socket listen error...\n");
+		exit(1);
+	}
+
+	shutdown(serverSocket, SHUT_RDWR);
 	return 0;
 }
