@@ -11,9 +11,9 @@
 int main(void)
 {
 	/*Variables for server*/
-	struct sockaddr_in serverAddres;
+	struct sockaddr_in serverAddres, clientAddres;
 	int serverSocket, serverBind, serverListen;
-
+	const char* buffer[255];
 	/*Creating socket handler for server and check value error*/
 	serverSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if(serverSocket == -1)
@@ -45,6 +45,21 @@ int main(void)
 		fprintf(stderr, "Socket listen error...\n");
 		exit(1);
 	}
+	socklen_t clientAddresLength = sizeof(clientAddres);
+	do
+	{
+		int acceptConnection = accept(serverSocket, (struct sockaddr *)&clientAddres, &clientAddresLength);
+		if(acceptConnection == -1)
+		{
+			fprintf(stderr, "Accept failed...\n");
+		}
+		else
+		{
+			memset(buffer, 0, sizeof(buffer));
+
+		}
+	}
+	while(1);
 
 	shutdown(serverSocket, SHUT_RDWR);
 	return 0;
